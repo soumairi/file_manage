@@ -1,0 +1,68 @@
+{
+  "fields": [
+    {
+      "name": "title",
+      "type": "string"
+    },
+    {
+      "name": "description",
+      "type": "string"
+    },
+    {
+      "name": "is_ftp",
+      "type": "boolean"
+    },
+    {
+      "name": "emplacement",
+      "type": "string"
+    },
+    {
+      "name": "ftp_host",
+      "type": "string"
+    },
+    {
+      "name": "ftp_user",
+      "type": "string"
+    },
+    {
+      "name": "ftp_pwd",
+      "type": "password"
+    },
+    {
+      "name": "ftp_mode",
+      "type": "boolean"
+    },
+    {
+      "name": "project_id",
+      "type": "integer#unsigned"
+    },
+
+  ],
+  "foreign_keys": [
+
+    {
+      "column": "project_id",
+      "references": "id",
+      "on": "projects",
+      "onDelete": "cascade"
+    }
+  ],
+  "relationships": [
+
+    {
+      "name": "project",
+      "type": "belongsTo",
+      "class": "App\\Project"
+    }
+  ],
+  "validations": [
+    {
+      "field": "title",
+      "rules": "required"
+    },
+    {
+      "field": "is_ftp",
+      "rules": "required"
+    }
+  ]
+}
