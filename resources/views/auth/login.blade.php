@@ -1,69 +1,111 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
+<head>
+    <link rel="icon" href="favicon.ico" />
 
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
+    <title>Login - INTELCIA</title>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+    <!-- Favicons-->
+    <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- For Windows Phone -->
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
 
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+    <!-- CORE CSS-->
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
+    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <!-- Custome CSS-->
+    <link href="css/custom-style.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <!-- CSS style Horizontal Nav (Layout 03)-->
+    <link href="css/style-horizontal.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="css/page-center.css" type="text/css" rel="stylesheet" media="screen,projection">
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link href="css/prism.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="css/perfect-scrollbar.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <style type="text/css">
+        #particles-js{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 99%;
+        }
+    </style>
+</head>
 
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+<body class="pink">
+<div id="particles-js"></div>
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
-                                </a>
-                            </div>
-                        </div>
-                    </form>
+<div id="login-page" class="row">
+    <div class="col s12 z-depth-4 card-panel">
+        <form  class="login-form" method="POST" action="{{ route('login') }}">
+            {{ csrf_field() }}
+            <div class="row">
+                <div class="input-field col s12 center">
+                    <img src="logologin.svg" alt="" class="responsive-img valign ">
                 </div>
             </div>
-        </div>
+            <div class="row margin">
+                <div class="input-field col s12">
+                    <i class="mdi-social-person-outline prefix"></i>
+                    <input name="email"  id="email" type="text" required pattern="^[A-z0-9-_.@]{4,}$">
+                    <label for="email" class="center-align">Login</label>
+                </div>
+            </div>
+            <div class="row margin">
+                <div class="input-field col s12">
+                    <i class="mdi-action-lock-outline prefix"></i>
+                    <input id="password" name="password" type="password" required pattern="^[A-z0-9-_.@]{6,}$">
+                    <label for="password">Mots de pass</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <button class="btn waves-effect waves-light col s12">Login</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 m12 l12">
+                    <p class="margin center-align medium-small message" style="display:none"></p>
+                </div>
+            </div>
+
+        </form>
     </div>
 </div>
-@endsection
+
+
+
+<!-- ================================================
+  Scripts
+  ================================================ -->
+
+<script src="particles.js"></script>
+<!-- jQuery Library -->
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<!--materialize js-->
+<script type="text/javascript" src="js/materialize.js"></script>
+<!--prism-->
+<script type="text/javascript" src="js/prism.js"></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" src="js/plugins.js"></script>
+
+<!-- scripts -->
+<script src="js/app.js"></script>
+
+<!-- stats.js -->
+<script src="js/lib/stats.js"></script>
+
+</body>
+
+</html>
+

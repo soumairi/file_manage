@@ -285,7 +285,7 @@
     </head>
     <body>
         <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
+            <div >
                 <div class="navbar-header">
 
                     <!-- Collapsed Hamburger -->
@@ -341,7 +341,7 @@
         </nav>
 
         @if (Session::has('flash_message'))
-            <div class="container">
+            <div >
                 <div class="alert alert-success">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     {{ Session::get('flash_message') }}
@@ -353,7 +353,7 @@
 
         <hr/>
 
-        <div class="container">
+        <div >
             &copy; {{ date('Y') }}. Created by <a href="http://www.appzcoder.com">AppzCoder</a>
             <br/>
         </div>
