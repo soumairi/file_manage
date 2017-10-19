@@ -36,10 +36,14 @@ Route::resource('admin/under_-projects', 'Admin\\Under_ProjectsController');
 //    'uses'=>'Admin\\Under_ProjectsController@details',
 //    'as'=>'sousprojet.details'
 //]);
-Route::get('admin/under_-projects/download/{id}/{files}/{fichier}',[
+Route::get('admin/under_-projects/download/{id}/{fichier}',[
     'uses'=>'Admin\\Under_ProjectsController@telecharger',
     'as'=>'sousprojet.telecharger'
 ]);
+/*Route::get('admin/under_-projects/download/{id}/{files}/{fichier}',[
+    'uses'=>'Admin\\Under_ProjectsController@telecharger',
+    'as'=>'sousprojet.telecharger'
+]);*/
 Route::get('admin/under_-projects/repertoire/{id}/{repe}',[
     'uses'=>'Admin\\Under_ProjectsController@detailsrepertoire',
     'as'=>'sousprojet.repertoire'

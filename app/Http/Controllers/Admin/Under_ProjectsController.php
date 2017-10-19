@@ -148,7 +148,7 @@ class Under_ProjectsController extends Controller
 
             $dir = $underproject->emplacement;
             $file_list = ftp_nlist($conn, $dir);
-            // dd($file_list);
+             //dd($file_list);
             foreach ($file_list as $file) {
                 if (!in_array($file, array(".", "..", ".htaccess", ".htpasswd"))) {
                     $de = is_dir("ftp://" . $ftp_user . ":" . $ftp_password . "@" . $ftp_host . "/" . $dir . "/" . $file);
@@ -234,15 +234,13 @@ class Under_ProjectsController extends Controller
                 Session::flash('flash_message', 'FTP connection has failed ! ' );
                 return back();
             }
-            $dir = str_replace('@', '/', $repe);
-            //dd($dir);
+            $dir = str_replace('@', '\\', $repe);
             $file_list = ftp_nlist($conn, $dir);
-
+            //dd($file_list);
 
             foreach ($file_list as $file) {
                 if (!in_array($file, array(".", "..", ".htaccess", ".htpasswd"))) {
                     $de = is_dir("ftp://" . $ftp_user . ":" . $ftp_password . "@" . $ftp_host . "/" . $dir . "/" . $file);
-
                     if ($de == True) {
                         $repertoires[] = array('dir' => $dir . "/" . $file, 'name' => $file);
 
@@ -282,7 +280,22 @@ class Under_ProjectsController extends Controller
 
     }
 
-    public function telecharger($id, $file, $fichier)
+    public function telecharger($id,$chemin)
+    {
+        $chemin       = str_replace('@','/',$chemin);
+        $underproject = Under_Project::find($id);
+
+        if ($underproject->is_ftp == True) {
+            $ftp_host = $underproject->ftp_host;
+            $ftp_user = $underproject->ftp_user;
+            $ftp_password = $underproject->ftp_pwd;
+            $ftp = "file://".$ftp_user.":".$ftp_password."@".$ftp_host.$chemin;
+            echo  $ftp;
+        }
+
+    }
+    
+   /* public function telecharger($id, $file, $fichier)
     {
         try {
             $underproject = Under_Project::find($id);
@@ -338,7 +351,7 @@ class Under_ProjectsController extends Controller
         }
 
 
-    }
+    }*/
     /**
      * Update the specified resource in storage.
      *

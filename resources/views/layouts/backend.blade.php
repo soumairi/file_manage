@@ -397,6 +397,9 @@
             })
 
         })
+            $('[type="file"] a').on('click',function(){
+                location.href = atob($(this).attr('to'))
+            })
 
         })
 

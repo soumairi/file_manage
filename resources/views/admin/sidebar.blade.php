@@ -1,6 +1,6 @@
 <div class="col-md-3">
     <div class="well" style="">
-       
+
     </div>
 
     @foreach($laravelAdminMenus->menus as $section)
