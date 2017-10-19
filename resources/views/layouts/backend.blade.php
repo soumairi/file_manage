@@ -379,6 +379,30 @@
             $('.container').removeClass('container')
             $('.col-md-3').attr('style','height:'+($(document).height()+25)+'px !important')
         })
+
+        $(function(){
+            $('#search').on('input',function () {
+                if($(this).val().trim() == "") {
+                    $('[type="file"], [type="folder"]').css('display', 'block');
+                }
+                    var $this = $(this)
+            $('[type="file"], [type="folder"]').each(function (i,d) {
+//                console.log($(d).text().trim().toLowerCase(),' : ',$this.val().trim().toLowerCase())
+                if($(d).text().trim().toLowerCase().indexOf($this.val().trim().toLowerCase())  < 0){
+                    $(d).css('display','none')
+                }
+                if($(d).text().trim().toLowerCase().indexOf($this.val().trim().toLowerCase())  >= 0){
+                    $(d).css('display','block')
+                }
+            })
+
+        })
+
+        })
+
+
+
+
     </script>
     </body>
 </html>
