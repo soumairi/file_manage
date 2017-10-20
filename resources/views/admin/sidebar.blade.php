@@ -27,7 +27,7 @@
         @if(Auth::check() && Auth::user()->hasRole('admin'))
         @else
         <ul class="nav navbar-nav">
-            <li><a href="{{ url('/admin/project') }}">Projets</a></li>
+            <li><a href="{{ url('/admin/projects') }}">Projets</a></li>
         </ul>
         @endif
 
