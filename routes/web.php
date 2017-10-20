@@ -36,7 +36,7 @@ Route::resource('admin/under_-projects', 'Admin\\Under_ProjectsController');
 //    'uses'=>'Admin\\Under_ProjectsController@details',
 //    'as'=>'sousprojet.details'
 //]);
-Route::get('admin/under_-projects/download/{id}/{fichier}',[
+Route::get('download/{id}/{fichier}',[
     'uses'=>'Admin\\Under_ProjectsController@telecharger',
     'as'=>'sousprojet.telecharger'
 ]);

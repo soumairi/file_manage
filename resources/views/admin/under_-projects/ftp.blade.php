@@ -7,7 +7,7 @@
         text-decoration: none;
     }
 </style>
-    <div class="container">
+    <div >
         <div class="row">
             @include('admin.sidebar')
 
@@ -58,8 +58,13 @@
                                              @php($repe=str_replace('/', '@', $fichier['dir']))
 
                                 <p>
-                                            <a to="{{ base64_encode('ftp://'.$underproject->ftp_user.':'.$underproject->ftp_pwd.'@'.$underproject->ftp_host.'/'.$fichier['name']) }}"
-                                               href="javascript:void(0)">
+                                            <a
+                                                    name="{{ $fichier['name'] }}"
+                                                    to="{{ base64_encode('ftp://'.$underproject->ftp_user.':'.$underproject->ftp_pwd.'@'.$underproject->ftp_host.'/'.$fichier['name']) }}"
+                                                    href="
+                                                         {{ route('sousprojet.telecharger',array('id'=>$underproject->id,'fichier'=>str_replace('/','@',$fichier['dir']))) }}
+                                                         "
+                                            >
                                                <?php
                                                $file = public_path().'/icons/'.strtolower(@explode('.',$fichier['name'])[1]).'.png';
                                                $url = is_file($file)?'/icons/'.strtolower(@explode('.',$fichier['name'])[1]).'.png':"/icons/file.png";

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Under_Project;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Session;
 
 class Under_ProjectsController extends Controller
@@ -282,15 +283,28 @@ class Under_ProjectsController extends Controller
 
     public function telecharger($id,$chemin)
     {
-        $chemin       = str_replace('@','/',$chemin);
-        $underproject = Under_Project::find($id);
+        $chemin        = str_replace('@','/',$chemin);
+        $underproject  = Under_Project::find($id);
 
         if ($underproject->is_ftp == True) {
-            $ftp_host = $underproject->ftp_host;
-            $ftp_user = $underproject->ftp_user;
+            $ftp_host  = $underproject->ftp_host;
+            $ftp_user  = $underproject->ftp_user;
             $ftp_password = $underproject->ftp_pwd;
-            $ftp = "file://".$ftp_user.":".$ftp_password."@".$ftp_host.$chemin;
-            echo  $ftp;
+            $file_url  = "ftp://".$ftp_user.":".$ftp_password."@".$ftp_host.'/'.$chemin;
+
+            $options = array('ftp' => array('overwrite' => true));
+            $stream = stream_context_create($options);
+
+            $data = file_get_contents($file_url, 0, $stream);
+
+
+            $file = public_path().'/downloads/'.basename($file_url);
+            file_put_contents($file, $data);
+
+            return [
+                'size'=>filesize($file),
+                'url'=>'/downloads/'.basename($file_url)
+            ];
         }
 
     }

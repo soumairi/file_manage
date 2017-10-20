@@ -111,7 +111,7 @@
                 min-height: 64px !important;
                 color: #fff !important;
                 border-radius: initial !important;
-                margin-left: 205px !important;;
+                margin-left: 0px !important;;
             }
 
             .navbar-header {
@@ -205,10 +205,10 @@
             .col-md-9 {
             //    display:none;
                 float: right !important;
-                width: 82% !important;
+                width: 94% !important;
                 box-shadow: 0px 2px 10px -6px !important;
                 padding: 0px !important;
-                margin: 0px 25px;
+                margin: 0px 40px;
                 background: #fff !important
             }
 
@@ -278,14 +278,42 @@
                 })
             */
 
+            .nav-download
+            {
+                position: fixed;
+                right: 0px;
+                z-index: 9999;
+                bottom: 30px;
 
+            }
+                .nav-download .progress{
+                    margin-bottom: 0px !important;
+                    height: 5px;
+                }
 
-
+                .download-file{
+                    padding: 10px;
+                    box-shadow: 0 1px 7px -5px;
+                }
         </style>
+        <script type="application/text" id="message_download">
+        <div class="download-file panel" role="alert">
+            <span class="fa fa-file"></span> [filename]
+            <div class="progress">
+                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                </div>
+            </div>
+        </div>
+    </script>
+
     </head>
     <body>
+    <section class="msg nav-download col-md-4">
+
+    </section>
+
         <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
+            <div >
                 <div class="navbar-header">
 
                     <!-- Collapsed Hamburger -->
@@ -304,9 +332,7 @@
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        <li><a href="{{ url('/admin') }}">Dashboard <span class="sr-only">(current)</span></a></li>
-                    </ul>
+                    @yield('sidebar')
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
@@ -340,8 +366,9 @@
             </div>
         </nav>
 
+
         @if (Session::has('flash_message'))
-            <div class="container">
+            <div >
                 <div class="alert alert-success">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     {{ Session::get('flash_message') }}
@@ -353,7 +380,7 @@
 
         <hr/>
 
-        <div class="container">
+        <div >
             &copy; {{ date('Y') }}. Created by <a href="http://www.appzcoder.com">AppzCoder</a>
             <br/>
         </div>
@@ -397,14 +424,37 @@
             })
 
         })
-            $('[type="file"] a').on('click',function(){
-                location.href = atob($(this).attr('to'))
+            $('[type="file"] a').on('click',function(ev){
+                ev.preventDefault();
+                $msg_down = $('#message_download').html().replace('[filename]',$(this).attr('name'));
+                $msg_obj  = $($msg_down);
+                $('.msg').append($msg_obj);
+                 $i=0;
+                 $end = false;
+                $data = {} ;
+                $.ajaxSetup({async:false});
+                $.ajax({
+                    url:$(this).attr('href'),
+                    success:function(e){
+                        $end = true;
+                        $data = e;
+                    }
+                })
+                $time = setInterval(function () {
+                    if($end == true){
+                        $msg_obj.find('.progress-bar').css('width','100%');
+                        setTimeout(function () {
+                            location.href = $data.url;
+                            $msg_obj.remove()
+                        },500)
+                        clearInterval($time);
+                    }else{
+                        $msg_obj.find('.progress-bar').css('width',(++$i)+'%')
+                    }
+                },100)
             })
 
         })
-
-
-
 
     </script>
     </body>
